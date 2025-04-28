@@ -1,0 +1,230 @@
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////// Do not modify the below code ////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+
+(function() {
+  function buildQuiz() {
+    // we'll need a place to store the HTML output
+    const output = [];
+
+    // for each question...
+    myQuestions.forEach((currentQuestion, questionNumber) => {
+      // we'll want to store the list of answer choices
+      const answers = [];
+
+      // and for each available answer...
+      for (letter in currentQuestion.answers) {
+        // ...add an HTML radio button
+        answers.push(
+          `<label>
+            <input type="radio" name="question${questionNumber}" value="${letter}">
+            ${letter} :
+            ${currentQuestion.answers[letter]}
+          </label>`
+        );
+      }
+
+      // add this question and its answers to the output
+      output.push(
+        `<div class="question"> ${currentQuestion.question} </div>
+        <div class="answers"> ${answers.join("")} </div>`
+      );
+    });
+
+    // finally combine our output list into one string of HTML and put it on the page
+    quizContainer.innerHTML = output.join("");
+  }
+
+  function showResults() {
+    // gather answer containers from our quiz
+    const answerContainers = quizContainer.querySelectorAll(".answers");
+
+    // keep track of user's answers
+    let numCorrect = 0;
+
+    // for each question...
+    myQuestions.forEach((currentQuestion, questionNumber) => {
+      // find selected answer
+      const answerContainer = answerContainers[questionNumber];
+      const selector = `input[name=question${questionNumber}]:checked`;
+      const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+      // if answer is correct
+      if (userAnswer === currentQuestion.correctAnswer) {
+        // add to the number of correct answers
+        numCorrect++;
+
+        // color the answers green
+        //answerContainers[questionNumber].style.color = "lightgreen";
+      } else {
+        // if answer is wrong or blank
+        // color the answers red
+        answerContainers[questionNumber].style.color = "red";
+      }
+    });
+
+    // show number of correct answers out of total
+    resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+  }
+
+  const quizContainer = document.getElementById("quiz");
+  const resultsContainer = document.getElementById("results");
+  const submitButton = document.getElementById("submit");
+ 
+
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////// Do not modify the above code ////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+/////////////// Write the MCQ below in the exactly same described format ///////////////
+
+
+  const myQuestions = [
+    {
+      "question": "1. B-H कर्व को ______ के नाम से भी जाना जाता है।",
+      "answers": {
+        "a": "क्यूरी प्वाइंट कर्व",
+        "b": "ओपन सर्किट विशेषताएँ",
+        "c": "हिस्टेरेसिस लूप",
+        "d": "चुंबकत्व कर्व"
+      },
+      "explanations": {
+        "a": "गलत, क्यूरी प्वाइंट वह तापमान है जिसके ऊपर सामग्री अपनी चुंबकीय गुणों को खो देती है।",
+        "b": "गलत, ओपन सर्किट विशेषताएँ विद्युत सर्किटों के व्यवहार से संबंधित हैं, चुंबकीय सामग्रियों से नहीं।",
+        "c": "गलत, जबकि हिस्टेरेसिस लूप B-H कर्व का हिस्सा है, यह इसे पूरी तरह से परिभाषित नहीं करता है।",
+        "d": "सही! B-H कर्व या चुंबकत्व कर्व फ्लक्स घनत्व (B) और चुंबकीय बल (H) के बीच संबंध को दर्शाता है। अधिक जानकारी के लिए <a href='https://www.tutorialspoint.com/magnetic-hysteresis-including-b-h-curve-importance-of-hysteresis-loop#:~:text=The%20B%2DH%20curve%20or%20magnetisation,and%20magnetising%20force%20(H).'>यहां</a> देखें।"
+      },
+      "correctAnswer": "d",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "2. हिस्टेरेसिस लूप का क्षेत्रफल ______ का प्रतिनिधित्व करता है।",
+      "answers": {
+        "a": "सामग्री की कोएर्सिविटी",
+        "b": "सामग्री की रेमेनेस",
+        "c": "प्रति चक्र ऊर्जा हानि",
+        "d": "चुंबकीय पारगम्यता"
+      },
+      "explanations": {
+        "a": "गलत, कोएर्सिविटी उस क्षेत्र शक्ति को मापती है जो चुंबकत्व को शून्य करने के लिए आवश्यक होती है, यह ऊर्जा हानि नहीं है।",
+        "b": "गलत, रेमेनेस वह अवशिष्ट चुंबकत्व है जब क्षेत्र को हटा लिया जाता है।",
+        "c": "सही! लूप का घेरा वह ऊर्जा है जो प्रति चक्र चुंबकत्व के दौरान गर्मी के रूप में नष्ट होती है।",
+        "d": "गलत, चुंबकीय पारगम्यता यह मापती है कि कोई सामग्री चुंबकीय क्षेत्र के निर्माण को कितनी आसानी से सहन करती है।"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "3. कोएर्सिविटी (Hc) का मतलब है ______।",
+      "answers": {
+        "a": "अधिकतम फ्लक्स घनत्व जो प्राप्त किया गया",
+        "b": "जब H = 0 हो तो अवशिष्ट फ्लक्स घनत्व",
+        "c": "वह चुंबकीय बल जो B को शून्य करने के लिए आवश्यक है",
+        "d": "चुंबकत्व के दौरान गर्मी के रूप में नष्ट होने वाली ऊर्जा"
+      },
+      "explanations": {
+        "a": "गलत, अधिकतम फ्लक्स घनत्व को संतृप्ति कहा जाता है।",
+        "b": "गलत, अवशिष्ट फ्लक्स घनत्व को रेमेनेस (Br) कहा जाता है।",
+        "c": "सही! कोएर्सिविटी वह चुंबकीय बल है जो सामग्री को विमाग्नित करने के लिए आवश्यक है।",
+        "d": "गलत, चुंबकत्व के दौरान ऊर्जा हानि हिस्टेरेसिस हानि से संबंधित है।"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "4. चुंबकीय फ्लक्स घनत्व (B) की इकाई क्या है?",
+      "answers": {
+        "a": "वेबर (Wb)",
+        "b": "टेस्ला (T)",
+        "c": "ऐम्पियर प्रति मीटर (A/m)",
+        "d": "हेनरी (H)"
+      },
+      "explanations": {
+        "a": "गलत, वेबर कुल चुंबकीय फ्लक्स को मापता है, फ्लक्स घनत्व को नहीं।",
+        "b": "सही! टेस्ला फ्लक्स घनत्व को मापता है, जो प्रति इकाई क्षेत्र चुंबकीय फ्लक्स होता है।",
+        "c": "गलत, ऐम्पियर प्रति मीटर चुंबकीय बल (H) की इकाई है।",
+        "d": "गलत, हेनरी प्रेरण (inductance) को मापता है, जो फ्लक्स घनत्व से संबंधित नहीं है।"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "5. B-H कर्व में रेमेनेस (Br) क्या है?",
+      "answers": {
+        "a": "जब H = 0 हो तब चुंबकत्व",
+        "b": "सामग्री को संतृप्त करने के लिए आवश्यक बल",
+        "c": "प्रति चक्र ऊर्जा हानि",
+        "d": "चुंबकत्व के लिए प्रतिरोध"
+      },
+      "explanations": {
+        "a": "सही! रेमेनेस वह अवशिष्ट चुंबकत्व है जो लागू क्षेत्र को हटाने के बाद बचता है।",
+        "b": "गलत, संतृप्ति अधिकतम चुंबकत्व का प्रतिनिधित्व करती है।",
+        "c": "गलत, प्रति चक्र ऊर्जा हानि हिस्टेरेसिस हानि है।",
+        "d": "गलत, चुंबकत्व के लिए प्रतिरोध चुंबकीय पारगम्यता से संबंधित है।"
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },                              ///// To add more questions, copy the section below 
+    									                  ///// this line
+
+
+    /* To add more MCQ's, copy the below section, starting from open curly braces ( { )
+        till closing curly braces comma ( }, )
+
+        and paste it below the curly braces comma ( below correct answer }, ) of above 
+        question
+
+    Copy below section
+
+    {
+      question: "This is question n?",
+      answers: {
+        a: "Option 1",
+        b: "Option 2",
+        c: "Option 3",
+        d: "Option 4"
+      },
+      correctAnswer: "c"
+    },
+
+    Copy above section
+
+    */
+
+
+
+
+  ];
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////// Do not modify the below code ////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+  // display quiz right away
+  buildQuiz();
+
+  // on submit, show results
+  submitButton.addEventListener("click", showResults);
+})();
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+/////////////////////// Do not modify the above code ////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////
